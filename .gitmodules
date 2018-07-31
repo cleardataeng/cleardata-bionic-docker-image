@@ -1,0 +1,3 @@
+[submodule "aws-sudo"]
+	path = aws-sudo
+	url = https://github.com/cleardataeng/aws-sudo.git
