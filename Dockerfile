@@ -19,6 +19,7 @@ RUN apt-get -q update && \
                                    python3-paramiko \
                                    python3-pip \
                                    python3-pytest \
+                                   zip \
                                    unzip \
                                    uuid-runtime
 
