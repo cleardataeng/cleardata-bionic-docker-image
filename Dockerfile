@@ -79,5 +79,8 @@ COPY --from=terraform-source /bin/terraform /usr/local/bin/terraform
 COPY --from=packer-source /bin/packer /usr/local/bin/packer
 COPY --from=vault-source /bin/vault /usr/local/bin/vault
 
+# disable hashicorp phone-home
+ENV CHECKPOINT_DISABLE=1
+
 # cleanup
 RUN rm -rf /root/* /tmp/* /google-cloud-sdk/.install/.backup
