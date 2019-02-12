@@ -13,6 +13,7 @@ RUN apt-get -q update && \
                                    ca-certificates \
                                    curl \
                                    dnsutils \
+                                   gettext-base \
                                    golang \
                                    iputils-ping \
                                    jq \
