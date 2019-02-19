@@ -76,8 +76,8 @@ RUN echo "send-metrics = false" > /etc/npmrc && \
 
 # populate static binaries from source images
 COPY --from=docker-source /usr/local/bin/docker /usr/local/bin/docker
-COPY --from=terraform-source /bin/terraform /usr/local/bin/terraform
 COPY --from=packer-source /bin/packer /usr/local/bin/packer
+COPY --from=terraform-source /bin/terraform /usr/local/bin/terraform
 COPY --from=vault-source /bin/vault /usr/local/bin/vault
 
 # disable hashicorp phone-home
