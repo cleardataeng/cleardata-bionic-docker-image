@@ -1,8 +1,8 @@
-FROM consul:1.4.2 as consul-source
+FROM consul:1.4.4 as consul-source
 FROM docker:18.06.1-ce as docker-source
 FROM hashicorp/terraform:0.11.11 as terraform-source
 FROM hashicorp/packer:1.3.4 as packer-source
-FROM vault:1.0.2 as vault-source
+FROM vault:1.1.1 as vault-source
 
 FROM ubuntu:18.04
 
