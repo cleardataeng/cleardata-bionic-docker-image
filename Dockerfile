@@ -1,6 +1,6 @@
 FROM consul:1.4.4 as consul-source
 FROM docker:18.06.1-ce as docker-source
-FROM hashicorp/terraform:0.11.11 as terraform-source
+FROM hashicorp/terraform:0.11.11 as terraform-0.11
 FROM hashicorp/packer:1.3.4 as packer-source
 FROM vault:1.1.1 as vault-source
 
@@ -79,8 +79,12 @@ RUN echo "send-metrics = false" > /etc/npmrc && \
 COPY --from=consul-source /bin/consul /usr/local/bin/consul
 COPY --from=docker-source /usr/local/bin/docker /usr/local/bin/docker
 COPY --from=packer-source /bin/packer /usr/local/bin/packer
-COPY --from=terraform-source /bin/terraform /usr/local/bin/terraform
 COPY --from=vault-source /bin/vault /usr/local/bin/vault
+
+# Terraform 0.11.11
+COPY --from=terraform-0.11 /bin/terraform /usr/local/bin/terraform
+RUN ln -s /usr/local/bin/terraform /usr/local/bin/terraform-0.11
+
 
 # disable hashicorp phone-home
 ENV CHECKPOINT_DISABLE=1
