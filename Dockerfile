@@ -43,16 +43,23 @@ RUN for i in /tmp/apt/*.key; do apt-key add $i; done && \
 RUN /usr/bin/pip --no-cache-dir install awscli awsrequests testinfra && \
     /usr/bin/pip3 --no-cache-dir install awscli awsrequests testinfra
 
-# updated golang
-RUN wget https://dl.google.com/go/go1.12.7.linux-amd64.tar.gz
-RUN tar -C /usr/local -xvf go1.12.7.linux-amd64.tar.gz
 
 # go config
 ENV GOPATH=/go
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 ENV GOROOT=/usr/local/go
 ENV PATH $GOPATH/bin:$GOROOT/bin:$PATH
-RUN go get -u golang.org/x/lint/golint
+
+# updated golang 	
+ENV go_ver=1.12.7
+ENV go_sha256=66d83bfb5a9ede000e33c6579a91a29e6b101829ad41fffb5c5bb6c900e109d9
+RUN cd root && \
+    wget https://dl.google.com/go/go${go_ver}.linux-amd64.tar.gz && \
+    echo "${go_sha256} go${go_ver}.linux-amd64.tar.gz" > sha256sums && \
+    (sha256sum -c sha256sums --strict) && \
+    tar -C /usr/local -xvf go${go_ver}.linux-amd64.tar.gz && \
+    rm go${go_ver}.linux-amd64.tar.gz && \ 
+    go get -u golang.org/x/lint/golint
 
 # aws-sudo
 ADD aws-sudo/aws-sudo.sh /usr/local/bin/aws-sudo.sh
