@@ -15,7 +15,7 @@ RUN apt-get -q update && \
                                    curl \
                                    dnsutils \
                                    gettext-base \
-                                   golang \
+                                   git \
                                    iputils-ping \
                                    jq \
                                    libssl-dev \
@@ -26,6 +26,7 @@ RUN apt-get -q update && \
                                    python3-paramiko \
                                    python3-pip \
                                    python3-pytest \
+                                   wget \
                                    zip \
                                    unzip \
                                    uuid-runtime
@@ -42,10 +43,16 @@ RUN for i in /tmp/apt/*.key; do apt-key add $i; done && \
 RUN /usr/bin/pip --no-cache-dir install awscli awsrequests testinfra && \
     /usr/bin/pip3 --no-cache-dir install awscli awsrequests testinfra
 
+# updated golang
+RUN wget https://dl.google.com/go/go1.12.7.linux-amd64.tar.gz
+RUN tar -C /usr/local -xvf go1.12.7.linux-amd64.tar.gz
+
 # go config
 ENV GOPATH=/go
-RUN mkdir ${GOPATH} && \
-    chmod 0777 ${GOPATH}
+RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+ENV GOROOT=/usr/local/go
+ENV PATH $GOPATH/bin:$GOROOT/bin:$PATH
+RUN go get -u golang.org/x/lint/golint
 
 # aws-sudo
 ADD aws-sudo/aws-sudo.sh /usr/local/bin/aws-sudo.sh
