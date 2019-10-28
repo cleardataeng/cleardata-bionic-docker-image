@@ -1,6 +1,7 @@
 FROM consul:1.4.4 as consul-source
 FROM docker:18.06.1-ce as docker-source
 FROM hashicorp/terraform:0.11.14 as terraform-0.11
+FROM hashicorp/terraform:0.12.12 as terraform-0.12
 FROM hashicorp/packer:1.3.4 as packer-source
 FROM vault:1.1.1 as vault-source
 
@@ -99,6 +100,8 @@ COPY --from=vault-source /bin/vault /usr/local/bin/vault
 COPY --from=terraform-0.11 /bin/terraform /usr/local/bin/terraform
 RUN ln -s /usr/local/bin/terraform /usr/local/bin/terraform-0.11
 
+# Terraform 0.12
+COPY --from=terraform-0.12 /bin/terraform /usr/local/bin/terraform-0.12
 
 # disable hashicorp phone-home
 ENV CHECKPOINT_DISABLE=1
