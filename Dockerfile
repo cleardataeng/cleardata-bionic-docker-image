@@ -51,15 +51,15 @@ RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 ENV GOROOT=/usr/local/go
 ENV PATH $GOPATH/bin:$GOROOT/bin:$PATH
 
-# updated golang 	
-ENV go_ver=1.12.7
-ENV go_sha256=66d83bfb5a9ede000e33c6579a91a29e6b101829ad41fffb5c5bb6c900e109d9
+# updated golang
+ENV go_ver=1.13.3
+ENV go_sha256=0804bf02020dceaa8a7d7275ee79f7a142f1996bfd0c39216ccb405f93f994c0
 RUN cd root && \
     wget https://dl.google.com/go/go${go_ver}.linux-amd64.tar.gz && \
     echo "${go_sha256} go${go_ver}.linux-amd64.tar.gz" > sha256sums && \
     (sha256sum -c sha256sums --strict) && \
     tar -C /usr/local -xvf go${go_ver}.linux-amd64.tar.gz && \
-    rm go${go_ver}.linux-amd64.tar.gz && \ 
+    rm go${go_ver}.linux-amd64.tar.gz && \
     go get -u golang.org/x/lint/golint
 
 # aws-sudo
