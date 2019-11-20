@@ -9,28 +9,28 @@ FROM ubuntu:18.04
 
 # common initial setup
 RUN apt-get -q update && \
-    DEBIAN_FRONTEND=noninteractive apt-get -q install -y \
-                                   apt-transport-https \
-                                   bind9-host \
-                                   ca-certificates \
-                                   curl \
-                                   dnsutils \
-                                   gettext-base \
-                                   git \
-                                   iputils-ping \
-                                   jq \
-                                   libssl-dev \
-                                   openssh-client \
-                                   python-paramiko \
-                                   python-pip \
-                                   python-pytest\
-                                   python3-paramiko \
-                                   python3-pip \
-                                   python3-pytest \
-                                   wget \
-                                   zip \
-                                   unzip \
-                                   uuid-runtime
+    DEBIAN_FRONTEND=noninteractive apt-get -q  install -y \
+    apt-transport-https \
+    bind9-host \
+    ca-certificates \
+    curl \
+    dnsutils \
+    gettext-base \
+    git \
+    iputils-ping \
+    jq \
+    libssl-dev \
+    openssh-client \
+    python-paramiko \
+    python-pip \
+    python-pytest\
+    python3-paramiko \
+    python3-pip \
+    python3-pytest \
+    wget \
+    zip \
+    unzip \
+    uuid-runtime
 
 # install and setup all of the apt keys / repos in the apt subdir
 # this way, a single apt-get update pulls in all of the external repos
@@ -67,7 +67,7 @@ ADD aws-sudo/aws-sudo.sh /usr/local/bin/aws-sudo.sh
 
 # google-sdk
 RUN DEBIAN_FRONTEND=noninteractive apt-get -q install -y google-cloud-sdk \
-                                                         kubectl && \
+    kubectl && \
     gcloud config set core/disable_usage_reporting true && \
     gcloud config set component_manager/disable_update_check true
 
@@ -84,6 +84,9 @@ RUN curl -L -o /root/gcrhelper.tar.gz https://github.com/GoogleCloudPlatform/doc
 RUN curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest && \
     echo "$(curl -s https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest.md5) /usr/local/bin/ecs-cli" | md5sum -c - && \
     chmod +x /usr/local/bin/ecs-cli
+
+# Install Helm
+RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | DESIRED_VERSION=v3.0.0 bash
 
 # node 9.x
 RUN echo "send-metrics = false" > /etc/npmrc && \
