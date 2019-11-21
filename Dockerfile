@@ -9,28 +9,28 @@ FROM ubuntu:18.04
 
 # common initial setup
 RUN apt-get -q update && \
-    DEBIAN_FRONTEND=noninteractive apt-get -q  install -y \
-                                               apt-transport-https \
-                                               bind9-host \
-                                               ca-certificates \
-                                               curl \
-                                               dnsutils \
-                                               gettext-base \
-                                               git \
-                                               iputils-ping \
-                                               jq \
-                                               libssl-dev \
-                                               openssh-client \
-                                               python-paramiko \
-                                               python-pip \
-                                               python-pytest\
-                                               python3-paramiko \
-                                               python3-pip \
-                                               python3-pytest \
-                                               wget \
-                                               zip \
-                                               unzip \
-                                               uuid-runtime
+    DEBIAN_FRONTEND=noninteractive apt-get -q install -y \
+                                   apt-transport-https \
+                                   bind9-host \
+                                   ca-certificates \
+                                   curl \
+                                   dnsutils \
+                                   gettext-base \
+                                   git \
+                                   iputils-ping \
+                                   jq \
+                                   libssl-dev \
+                                   openssh-client \
+                                   python-paramiko \
+                                   python-pip \
+                                   python-pytest\
+                                   python3-paramiko \
+                                   python3-pip \
+                                   python3-pytest \
+                                   wget \
+                                   zip \
+                                   unzip \
+                                   uuid-runtime
 
 # install and setup all of the apt keys / repos in the apt subdir
 # this way, a single apt-get update pulls in all of the external repos
