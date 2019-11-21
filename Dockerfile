@@ -85,6 +85,16 @@ RUN curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-c
     echo "$(curl -s https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest.md5) /usr/local/bin/ecs-cli" | md5sum -c - && \
     chmod +x /usr/local/bin/ecs-cli
 
+# install helm
+RUN mkdir tmp-helm && \
+    cd tmp-helm && \
+    curl -o "./helm-v3.0.0-linux-amd64.tar.gz" "https://get.helm.sh/helm-v3.0.0-linux-amd64.tar.gz" && \
+    echo "10e1fdcca263062b1d7b2cb93a924be1ef3dd6c381263d8151dd1a20a3d8c0dc helm-v3.0.0-linux-amd64.tar.gz" > sha256sums && \
+    sha256sum -c sha256sums --strict && \
+    tar -zxvf helm-v3.0.0-linux-amd64.tar.gz && \
+    mv linux-amd64/helm  /usr/local/bin/ && \
+    rm -rf ../tmp-helm
+
 # node 9.x
 RUN echo "send-metrics = false" > /etc/npmrc && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs yarn && \
