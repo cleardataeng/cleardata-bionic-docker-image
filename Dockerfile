@@ -4,6 +4,7 @@ FROM hashicorp/terraform:0.11.14 as terraform-0.11
 FROM hashicorp/terraform:0.12.16 as terraform-0.12
 FROM hashicorp/packer:1.4.4 as packer-source
 FROM vault:1.2.3 as vault-source
+FROM gcr.io/cloudsql-docker/gce-proxy:1.16 as cloudsqlproxy-source
 
 FROM ubuntu:18.04
 
@@ -112,6 +113,9 @@ RUN ln -s /usr/local/bin/terraform /usr/local/bin/terraform-0.11
 
 # Terraform 0.12
 COPY --from=terraform-0.12 /bin/terraform /usr/local/bin/terraform-0.12
+
+# Cloud SQL proxy
+COPY --from=cloudsqlproxy-source /cloud_sql_proxy /usr/local/bin/cloud_sql_proxy
 
 # disable hashicorp phone-home
 ENV CHECKPOINT_DISABLE=1
