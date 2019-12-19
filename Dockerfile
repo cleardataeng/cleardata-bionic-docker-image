@@ -11,27 +11,27 @@ FROM ubuntu:18.04
 # common initial setup
 RUN apt-get -q update && \
     DEBIAN_FRONTEND=noninteractive apt-get -q install -y \
-    apt-transport-https \
-    bind9-host \
-    ca-certificates \
-    curl \
-    dnsutils \
-    gettext-base \
-    git \
-    iputils-ping \
-    jq \
-    libssl-dev \
-    openssh-client \
-    python-paramiko \
-    python-pip \
-    python-pytest\
-    python3-paramiko \
-    python3-pip \
-    python3-pytest \
-    wget \
-    zip \
-    unzip \
-    uuid-runtime
+                                   apt-transport-https \
+                                   bind9-host \
+                                   ca-certificates \
+                                   curl \
+                                   dnsutils \
+                                   gettext-base \
+                                   git \
+                                   iputils-ping \
+                                   jq \
+                                   libssl-dev \
+                                   openssh-client \
+                                   python-paramiko \
+                                   python-pip \
+                                   python-pytest\
+                                   python3-paramiko \
+                                   python3-pip \
+                                   python3-pytest \
+                                   wget \
+                                   zip \
+                                   unzip \
+                                   uuid-runtime
 
 # install and setup all of the apt keys / repos in the apt subdir
 # this way, a single apt-get update pulls in all of the external repos
@@ -68,7 +68,7 @@ ADD aws-sudo/aws-sudo.sh /usr/local/bin/aws-sudo.sh
 
 # google-sdk
 RUN DEBIAN_FRONTEND=noninteractive apt-get -q install -y google-cloud-sdk \
-    kubectl && \
+                                                         kubectl && \
     gcloud config set core/disable_usage_reporting true && \
     gcloud config set component_manager/disable_update_check true
 
