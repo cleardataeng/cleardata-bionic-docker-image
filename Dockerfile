@@ -11,27 +11,27 @@ FROM ubuntu:18.04
 # common initial setup
 RUN apt-get -q update && \
     DEBIAN_FRONTEND=noninteractive apt-get -q install -y \
-                                   apt-transport-https \
-                                   bind9-host \
-                                   ca-certificates \
-                                   curl \
-                                   dnsutils \
-                                   gettext-base \
-                                   git \
-                                   iputils-ping \
-                                   jq \
-                                   libssl-dev \
-                                   openssh-client \
-                                   python-paramiko \
-                                   python-pip \
-                                   python-pytest\
-                                   python3-paramiko \
-                                   python3-pip \
-                                   python3-pytest \
-                                   wget \
-                                   zip \
-                                   unzip \
-                                   uuid-runtime
+    apt-transport-https \
+    bind9-host \
+    ca-certificates \
+    curl \
+    dnsutils \
+    gettext-base \
+    git \
+    iputils-ping \
+    jq \
+    libssl-dev \
+    openssh-client \
+    python-paramiko \
+    python-pip \
+    python-pytest\
+    python3-paramiko \
+    python3-pip \
+    python3-pytest \
+    wget \
+    zip \
+    unzip \
+    uuid-runtime
 
 # install and setup all of the apt keys / repos in the apt subdir
 # this way, a single apt-get update pulls in all of the external repos
@@ -68,7 +68,7 @@ ADD aws-sudo/aws-sudo.sh /usr/local/bin/aws-sudo.sh
 
 # google-sdk
 RUN DEBIAN_FRONTEND=noninteractive apt-get -q install -y google-cloud-sdk \
-                                                         kubectl && \
+    kubectl && \
     gcloud config set core/disable_usage_reporting true && \
     gcloud config set component_manager/disable_update_check true
 
@@ -89,10 +89,10 @@ RUN curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-c
 # install helm
 RUN mkdir tmp-helm && \
     cd tmp-helm && \
-    curl -o "./helm-v3.0.0-linux-amd64.tar.gz" "https://get.helm.sh/helm-v3.0.0-linux-amd64.tar.gz" && \
-    echo "10e1fdcca263062b1d7b2cb93a924be1ef3dd6c381263d8151dd1a20a3d8c0dc helm-v3.0.0-linux-amd64.tar.gz" > sha256sums && \
+    curl -o "./helm-v3.0.2-linux-amd64.tar.gz" "https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz" && \
+    echo "c6b7aa7e4ffc66e8abb4be328f71d48c643cb8f398d95c74d075cfb348710e1d helm-v3.0.2-linux-amd64.tar.gz" > sha256sums && \
     sha256sum -c sha256sums --strict && \
-    tar -zxvf helm-v3.0.0-linux-amd64.tar.gz && \
+    tar -zxvf helm-v3.0.2-linux-amd64.tar.gz && \
     mv linux-amd64/helm  /usr/local/bin/ && \
     rm -rf ../tmp-helm
 
