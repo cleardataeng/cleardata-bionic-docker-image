@@ -89,10 +89,10 @@ RUN curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-c
 # install helm
 RUN mkdir tmp-helm && \
     cd tmp-helm && \
-    curl -o "./helm-v3.0.0-linux-amd64.tar.gz" "https://get.helm.sh/helm-v3.0.0-linux-amd64.tar.gz" && \
-    echo "10e1fdcca263062b1d7b2cb93a924be1ef3dd6c381263d8151dd1a20a3d8c0dc helm-v3.0.0-linux-amd64.tar.gz" > sha256sums && \
+    curl -o "./helm-v3.0.2-linux-amd64.tar.gz" "https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz" && \
+    echo "c6b7aa7e4ffc66e8abb4be328f71d48c643cb8f398d95c74d075cfb348710e1d helm-v3.0.2-linux-amd64.tar.gz" > sha256sums && \
     sha256sum -c sha256sums --strict && \
-    tar -zxvf helm-v3.0.0-linux-amd64.tar.gz && \
+    tar -zxvf helm-v3.0.2-linux-amd64.tar.gz && \
     mv linux-amd64/helm  /usr/local/bin/ && \
     rm -rf ../tmp-helm
 
