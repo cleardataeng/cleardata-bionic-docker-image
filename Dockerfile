@@ -35,11 +35,9 @@ RUN apt-get -q update && \
 
 # install and setup all of the apt keys / repos in the apt subdir
 # this way, a single apt-get update pulls in all of the external repos
-ADD apt/* /tmp/apt/
-RUN for i in /tmp/apt/*.key; do apt-key add $i; done && \
-    cp /tmp/apt/*.list /etc/apt/sources.list.d && \
-    rm -rf /tmp/apt && \
-    apt-get update
+ADD apt/*.asc /etc/apt/trusted.gpg.d/
+ADD apt/*.list /etc/apt/sources.list.d/
+RUN apt-get update
 
 # common python modules
 RUN /usr/bin/pip --no-cache-dir install awscli awsrequests testinfra && \
