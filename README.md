@@ -1,4 +1,4 @@
-Ubuntu 18.04.1 LTS (Bionic Beaver)
+Ubuntu 18.04 LTS (Bionic Beaver)
 =====
 
 A docker image with tools commonly used at ClearDATA (awscli, packer, terraform, testinfra, etc)
