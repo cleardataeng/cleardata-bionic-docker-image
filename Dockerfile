@@ -2,6 +2,8 @@ FROM consul:1.4.4 as consul-source
 FROM docker:18.06.1-ce as docker-source
 FROM hashicorp/terraform:0.11.14 as terraform-0.11
 FROM hashicorp/terraform:0.12.24 as terraform-0.12
+FROM hashicorp/terraform:0.13.6 as terraform-0.13
+FROM hashicorp/terraform:0.14.4 as terraform-0.14
 FROM hashicorp/packer:1.4.4 as packer-source
 FROM vault:1.2.3 as vault-source
 FROM gcr.io/cloudsql-docker/gce-proxy:1.16 as cloudsqlproxy-source
@@ -105,12 +107,12 @@ COPY --from=docker-source /usr/local/bin/docker /usr/local/bin/docker
 COPY --from=packer-source /bin/packer /usr/local/bin/packer
 COPY --from=vault-source /bin/vault /usr/local/bin/vault
 
-# Terraform 0.11
+# Terraform
 COPY --from=terraform-0.11 /bin/terraform /usr/local/bin/terraform
 RUN ln -s /usr/local/bin/terraform /usr/local/bin/terraform-0.11
-
-# Terraform 0.12
 COPY --from=terraform-0.12 /bin/terraform /usr/local/bin/terraform-0.12
+COPY --from=terraform-0.13 /bin/terraform /usr/local/bin/terraform-0.13
+COPY --from=terraform-0.14 /bin/terraform /usr/local/bin/terraform-0.14
 
 # Cloud SQL proxy
 COPY --from=cloudsqlproxy-source /cloud_sql_proxy /usr/local/bin/cloud_sql_proxy
