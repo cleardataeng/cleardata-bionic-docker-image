@@ -7,6 +7,7 @@ FROM hashicorp/terraform:0.14.4 as terraform-0.14
 FROM hashicorp/packer:1.4.4 as packer-source
 FROM vault:1.2.3 as vault-source
 FROM gcr.io/cloudsql-docker/gce-proxy:1.16 as cloudsqlproxy-source
+FROM k8s.gcr.io/kustomize/kustomize:v3.9.2 as kustomize-source
 
 FROM ubuntu:18.04
 
@@ -116,6 +117,9 @@ COPY --from=terraform-0.14 /bin/terraform /usr/local/bin/terraform-0.14
 
 # Cloud SQL proxy
 COPY --from=cloudsqlproxy-source /cloud_sql_proxy /usr/local/bin/cloud_sql_proxy
+
+# kustomize
+COPY --from=kustomize-source /app/kustomize /usr/local/bin/kustomize
 
 # disable hashicorp phone-home
 ENV CHECKPOINT_DISABLE=1
