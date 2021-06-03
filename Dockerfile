@@ -97,11 +97,6 @@ RUN mkdir tmp-helm && \
     mv linux-amd64/helm  /usr/local/bin/ && \
     rm -rf ../tmp-helm
 
-# node 9.x
-RUN echo "send-metrics = false" > /etc/npmrc && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs yarn && \
-    npm install npm --global
-
 # populate static binaries from source images
 COPY --from=consul-source /bin/consul /usr/local/bin/consul
 COPY --from=docker-source /usr/local/bin/docker /usr/local/bin/docker
