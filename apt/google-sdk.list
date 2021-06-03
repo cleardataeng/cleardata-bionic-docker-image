@@ -1,1 +1,1 @@
-deb http://packages.cloud.google.com/apt cloud-sdk-bionic main
+deb [signed-by=/usr/share/keyrings/google.asc] http://packages.cloud.google.com/apt cloud-sdk-bionic main

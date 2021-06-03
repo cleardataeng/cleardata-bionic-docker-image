@@ -38,7 +38,7 @@ RUN apt-get -q update && \
 
 # install and setup all of the apt keys / repos in the apt subdir
 # this way, a single apt-get update pulls in all of the external repos
-ADD apt/*.asc /etc/apt/trusted.gpg.d/
+ADD apt/*.asc /usr/share/keyrings
 ADD apt/*.list /etc/apt/sources.list.d/
 RUN apt-get update
 
