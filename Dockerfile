@@ -21,6 +21,7 @@ RUN apt-get -q update && \
                                    dnsutils \
                                    gettext-base \
                                    git \
+                                   gulp \
                                    iputils-ping \
                                    jq \
                                    libssl-dev \
