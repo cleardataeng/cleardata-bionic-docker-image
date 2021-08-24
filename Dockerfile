@@ -7,7 +7,7 @@ FROM hashicorp/terraform:0.14.4 as terraform-0.14
 FROM hashicorp/packer:1.4.4 as packer-source
 FROM vault:1.2.3 as vault-source
 FROM gcr.io/cloudsql-docker/gce-proxy:1.16 as cloudsqlproxy-source
-FROM k8s.gcr.io/kustomize/kustomize:v3.9.2 as kustomize-source
+FROM k8s.gcr.io/kustomize/kustomize:v4.2.0 as kustomize-source
 
 FROM ubuntu:18.04
 
