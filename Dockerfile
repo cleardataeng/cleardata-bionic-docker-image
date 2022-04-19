@@ -45,7 +45,7 @@ RUN apt-get update
 
 # common python modules
 RUN /usr/bin/pip --no-cache-dir install awscli awsrequests testinfra && \
-    /usr/bin/pip3 --no-cache-dir install awscli awsrequests testinfra
+    /usr/bin/pip3 --no-cache-dir install awscli awsrequests testinfra yq
 
 
 # go config
