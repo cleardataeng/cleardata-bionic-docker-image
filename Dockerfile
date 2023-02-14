@@ -37,10 +37,10 @@ RUN apt-get -q update && \
                                    unzip \
                                    uuid-runtime
 
-# install and setup all of the apt keys / repos in the apt subdir
-# this way, a single apt-get update pulls in all of the external repos
-ADD apt/*.asc /usr/share/keyrings
-ADD apt/*.list /etc/apt/sources.list.d/
+# Add google package registry for golang and gcloud tools
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+
 RUN apt-get update
 
 # common python modules
