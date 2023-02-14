@@ -62,8 +62,7 @@ RUN cd root && \
     echo "${go_sha256} go${go_ver}.linux-amd64.tar.gz" > sha256sums && \
     (sha256sum -c sha256sums --strict) && \
     tar -C /usr/local -xvf go${go_ver}.linux-amd64.tar.gz && \
-    rm go${go_ver}.linux-amd64.tar.gz && \
-    go get -u golang.org/x/lint/golint
+    rm go${go_ver}.linux-amd64.tar.gz
 
 # aws-sudo
 ADD aws-sudo/aws-sudo.sh /usr/local/bin/aws-sudo.sh
